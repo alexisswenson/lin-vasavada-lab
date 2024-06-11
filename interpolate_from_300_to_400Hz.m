@@ -37,7 +37,7 @@ for i = 1:numel(boris_files)
         interpolated_column = interp1(1:height(boris_data), boris_data{:, col}, linspace(1, height(boris_data), length(interpolated_time)), 'linear');
 
         % Round the interpolated values to 0 or 1
-        interpolated_column(interpolated_column >= 0.75) = 1;
+        interpolated_column(interpolated_column > 0.62) = 1;
         interpolated_column(interpolated_column < 0.75) = 0;
 
         % Assign the interpolated column to the resampled data matrix
