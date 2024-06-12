@@ -3,7 +3,7 @@ clear
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Input parameters (All you need to change)
 animal_number = 'SCDD15';
-sand_or_solid = 'sand';
+sand_or_solid = 'solid';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Define parameters
@@ -47,8 +47,8 @@ for i = 1:numel(boris_files)
     % Create a new table with the resampled data
     resampled_boris_data = array2table(interpolated_data, 'VariableNames', boris_data.Properties.VariableNames(2:end));
 
-    % Add a new column for the resampled time at the beginning
-    resampled_boris_data = addvars(resampled_boris_data, interpolated_time(:), 'Before', 1, 'NewVariableNames', 'Time');
+    % Add a new column for the resampled time at the end
+    resampled_boris_data.Time = interpolated_time(:);
 
     % Save the resampled BORIS data to the output folder
     output_filename = fullfile(output_boris_folder, strcat('resampled_', boris_files(i).name));
@@ -82,9 +82,6 @@ for i = 1:numel(data_files)
 
     % Create a new table with the resampled data
     resampled_data = array2table(interpolated_data, 'VariableNames', data.Properties.VariableNames);
-
-    % Add a new column for the resampled time at the beginning
-    resampled_data = addvars(resampled_data, interpolated_time(:), 'Before', 1, 'NewVariableNames', 'Time');
 
     % Save the resampled data to the output folder
     output_filename = fullfile(output_data_folder, strcat('resampled_', data_files(i).name));
